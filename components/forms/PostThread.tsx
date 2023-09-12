@@ -19,10 +19,12 @@ import { usePathname, useRouter } from "next/navigation";
 import { ThreadValidation } from "@/lib/validations/thread";
 import { createThread } from "@/lib/actions/thread.actions";
 // import { updateUser } from "@/lib/actions/user.actions";
+import { useOrganization } from "@clerk/nextjs";
 
 type FormValues = z.infer<typeof ThreadValidation>;
 
 const PostThread: React.FC<{ userId: string }> = ({ userId }) => {
+  const { organization } = useOrganization() as any;
   const router = useRouter();
   const pathname = usePathname();
   const form = useForm<FormValues>({
@@ -35,17 +37,13 @@ const PostThread: React.FC<{ userId: string }> = ({ userId }) => {
   });
 
   const onSubmit = async (values: FormValues) => {
-    try {
-      await createThread({
-        author: userId,
-        communityId: null,
-        path: pathname,
-        text: values.thread,
-      });
-      router.push("/");
-    } catch (error) {
-      console.log(error);
-    }
+    await createThread({
+      author: userId,
+      communityId: organization ? organization.id : null,
+      path: pathname,
+      text: values.thread,
+    });
+    router.push("/");
   };
 
   return (
