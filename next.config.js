@@ -3,6 +3,7 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  swcMinify: true,
   experimental: {
     serverActions: true,
     serverComponentsExternalPackages: ["mongoose"],
