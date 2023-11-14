@@ -1,7 +1,7 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 
-import { Button } from "../ui/button";
+import { Button } from '../ui/button';
 
 interface Props {
   id: string;
@@ -54,7 +54,7 @@ function CommunityCard({ id, name, username, imgUrl, bio, members }: Props) {
                 width={28}
                 height={28}
                 className={`${
-                  index !== 0 && "-ml-2"
+                  index !== 0 && '-ml-2'
                 } rounded-full object-cover`}
               />
             ))}

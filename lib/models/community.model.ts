@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const communitySchema = new mongoose.Schema({
   id: { type: String, required: true },
@@ -8,18 +8,18 @@ const communitySchema = new mongoose.Schema({
   bio: { type: String },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: 'User',
   },
   threads: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Thread",
+      ref: 'Thread',
     },
   ],
   members: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
     },
   ],
   onboarded: {
@@ -29,12 +29,12 @@ const communitySchema = new mongoose.Schema({
   communities: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Community",
+      ref: 'Community',
     },
   ],
 });
 
 const Communitites =
-  mongoose.models.communities || mongoose.model("communities", communitySchema);
+  mongoose.models.communities || mongoose.model('communities', communitySchema);
 
 export default Communitites;

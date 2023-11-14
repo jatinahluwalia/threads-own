@@ -1,15 +1,15 @@
-import { fetchActivites, fetchUser } from "@/lib/actions/user.actions";
-import { currentUser } from "@clerk/nextjs";
-import Image from "next/image";
-import Link from "next/link";
-import { redirect } from "next/navigation";
+import { fetchActivites, fetchUser } from '@/lib/actions/user.actions';
+import { currentUser } from '@clerk/nextjs';
+import Image from 'next/image';
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 const Activity = async () => {
   const user = await currentUser();
   if (!user) return null;
 
   const userInfo = await fetchUser(user.id);
-  if (!userInfo.onboarded) redirect("/onboarding");
+  if (!userInfo.onboarded) redirect('/onboarding');
   const activity = await fetchActivites(userInfo._id);
   return (
     <div>
@@ -30,7 +30,7 @@ const Activity = async () => {
                   <p className="!text-small-regular text-light-1">
                     <span className="mr-1 text-primary-500">
                       {activity.author.name}
-                    </span>{" "}
+                    </span>{' '}
                     replied to your thread
                   </p>
                 </article>

@@ -1,11 +1,11 @@
-import { currentUser } from "@clerk/nextjs";
-import Image from "next/image";
-import { communityTabs } from "@/constants";
-import ProfileHeader from "@/components/shared/ProfileHeader";
-import ThreadsTab from "@/components/shared/ThreadsTab";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { fetchCommunityDetails } from "@/lib/actions/community.actions";
-import UserCard from "@/components/cards/UserCard";
+import { currentUser } from '@clerk/nextjs';
+import Image from 'next/image';
+import { communityTabs } from '@/constants';
+import ProfileHeader from '@/components/shared/ProfileHeader';
+import ThreadsTab from '@/components/shared/ThreadsTab';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { fetchCommunityDetails } from '@/lib/actions/community.actions';
+import UserCard from '@/components/cards/UserCard';
 
 const Profile = async ({ params }: { params: { id: string } }) => {
   const user = await currentUser();
@@ -38,7 +38,7 @@ const Profile = async ({ params }: { params: { id: string } }) => {
                   className="object-contain"
                 />
                 <p className="max-sm:hidden">{tab.label}</p>
-                {tab.label === "Threads" && (
+                {tab.label === 'Threads' && (
                   <p className="ml-1 rounded-sm bg-light-4 px-2 py-1 !text-tiny-medium text-light-2">
                     {communityDetails.threads.length}
                   </p>

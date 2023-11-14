@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { usePathname, useRouter } from "next/navigation";
-import { Button } from "../ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CommentValidation } from "@/lib/validations/thread";
-import { z } from "zod";
-import { Input } from "../ui/input";
-import Image from "next/image";
-import { addCommentToThread } from "@/lib/actions/thread.actions";
+import { addCommentToThread } from '@/lib/actions/thread.actions';
+import { CommentValidation } from '@/lib/validations/thread';
+import { zodResolver } from '@hookform/resolvers/zod';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { Button } from '../ui/button';
+import { Form, FormControl, FormField, FormItem, FormLabel } from '../ui/form';
+import { Input } from '../ui/input';
 
 interface Props {
   threadId: string;
@@ -19,14 +19,13 @@ interface Props {
 type FormValues = z.infer<typeof CommentValidation>;
 
 const Comment = ({ threadId, currentUserImage, currentUserId }: Props) => {
-  const router = useRouter();
   const pathname = usePathname();
   const form = useForm<FormValues>({
     resolver: zodResolver(CommentValidation),
     defaultValues: {
-      thread: "",
+      thread: '',
     },
-    mode: "all",
+    mode: 'all',
   });
 
   const onSubmit = async (values: FormValues) => {

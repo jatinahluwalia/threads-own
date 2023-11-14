@@ -1,27 +1,26 @@
-"use client";
+'use client';
 
-import { useForm } from "react-hook-form";
+import { updateUser } from '@/lib/actions/user.actions';
+import { useUploadThing } from '@/lib/uploadthing';
+import { isBase64Image } from '@/lib/utils';
+import { UserValidation } from '@/lib/validations/user';
+import { zodResolver } from '@hookform/resolvers/zod';
+import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
+import React, { ChangeEvent, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { Button } from '../ui/button';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { UserValidation } from "@/lib/validations/user";
-import { z } from "zod";
-import Image from "next/image";
-import { Input } from "../ui/input";
-import { ChangeEvent, useState } from "react";
-import { Button } from "../ui/button";
-import { Textarea } from "../ui/textarea";
-import { isBase64Image } from "@/lib/utils";
-import { useUploadThing } from "@/lib/uploadthing";
-import { updateUser } from "@/lib/actions/user.actions";
-import { usePathname, useRouter } from "next/navigation";
+} from '../ui/form';
+import { Input } from '../ui/input';
+import { Textarea } from '../ui/textarea';
 
 interface Props {
   user: {
@@ -40,17 +39,17 @@ type FormValues = z.infer<typeof UserValidation>;
 const AccountProfile: React.FC<Props> = ({ user, btnTitle }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const { startUpload } = useUploadThing("media");
+  const { startUpload } = useUploadThing('media');
   const [files, setFiles] = useState<File[]>([]);
   const form = useForm<FormValues>({
     resolver: zodResolver(UserValidation),
     defaultValues: {
-      profile_photo: user.image || "",
-      name: user.name || "",
-      username: user.username || "",
-      bio: user.bio || "",
+      profile_photo: user.image || '',
+      name: user.name || '',
+      username: user.username || '',
+      bio: user.bio || '',
     },
-    mode: "all",
+    mode: 'all',
   });
   const handleImage = (
     e: ChangeEvent<HTMLInputElement>,
@@ -61,9 +60,9 @@ const AccountProfile: React.FC<Props> = ({ user, btnTitle }) => {
     if (e.target.files?.length) {
       setFiles(Array.from(e.target.files));
       const file = e.target.files[0];
-      if (!file.type.includes("image")) return;
+      if (!file.type.includes('image')) return;
       reader.onloadend = (event) => {
-        onChange(event?.target?.result?.toString() || "");
+        onChange(event?.target?.result?.toString() || '');
       };
       reader.readAsDataURL(file);
     }
@@ -88,10 +87,10 @@ const AccountProfile: React.FC<Props> = ({ user, btnTitle }) => {
         userId: user.id,
       });
 
-      if (pathname === "/profile/edit") {
+      if (pathname === '/profile/edit') {
         router.back();
       } else {
-        router.push("/");
+        router.push('/');
       }
     } catch (error: any) {
       console.log(error.message);
@@ -121,7 +120,7 @@ const AccountProfile: React.FC<Props> = ({ user, btnTitle }) => {
                   />
                 ) : (
                   <Image
-                    src={"/assets/profile.svg"}
+                    src={'/assets/profile.svg'}
                     alt="profile_photo"
                     width={24}
                     height={24}
